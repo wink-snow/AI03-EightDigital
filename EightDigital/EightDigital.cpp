@@ -1,4 +1,4 @@
-#include "EightDigital.h"
+﻿#include "EightDigital.h"
 EightDigital::EightDigital(string initial_state) {
 	initial_state_ = initial_state;
 }
