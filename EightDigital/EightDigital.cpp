@@ -29,7 +29,7 @@ void EightDigital::PrintStringAsMatrix(string state) {
 
 bool EightDigital::HasSolution(string state) {
 	int num = 0;/*计算逆序对数*/
-	for (int i = 1; i < state.size(); ++i) {
+	for (int i = 1; i < int(state.size()); ++i) {
 		if (state[i] != '0') {
 			for (int j = 0; j < i; ++j) {
 				if (state.at(i) < state.at(j) && state[j != '0']) {
@@ -213,7 +213,7 @@ void EightDigital::PrintAstarPath() {
 	}
 	path_.push_back(initial_state_);
 	/*由于此时path里面的路径是倒置的，故将其反向输出，也可以用栈实现，但输出结束栈空，路径无法保留*/
-	for (int i = 0; i < path_.size(); ++i) {
+	for (int i = 0; i < int(path_.size()); ++i) {
 		for (int j = 0; j < 9; ++j) {
 			cout << path_[path_.size() - 1 - i][j] << '\t';
 			if ((j + 1) % 3 == 0 && j > 0)cout << endl;
