@@ -28,7 +28,7 @@ void EightDigital::PrintStringAsMatrix(string state) {
 }
 
 bool EightDigital::HasSolution(string state) {
-	int num = 0;/*¼ÆËãÄæĞò¶ÔÊı*/
+	int num = 0;/*è®¡ç®—é€†åºå¯¹æ•°*/
 	for (int i = 1; i < state.size(); ++i) {
 		if (state[i] != '0') {
 			for (int j = 0; j < i; ++j) {
@@ -38,12 +38,12 @@ bool EightDigital::HasSolution(string state) {
 			}
 		}
 	}
-	return num % 2 == 0;/*ÅĞ¶ÏÆæÅ¼ĞÔ*/
+	return num % 2 == 0;/*åˆ¤æ–­å¥‡å¶æ€§*/
 }
 
 void EightDigital::DFS(string state) {
-	visited_[state] = 1;/*½øÈëDFS()µÄ½Úµã¿Ï¶¨Ã»·ÃÎÊ¹ı£¬¹ÊÏÖÔÚ±ê¼ÇÎª·ÃÎÊ¹ı*/
-	if (visited_.find(target_state_) != visited_.end()) return;/*ÅĞ¶ÏÄ¿±ê×´Ì¬ÓĞÃ»ÓĞ·ÃÎÊ¹ı£¬·ÃÎÊ¹ıÖ±½ÓÍË³ö*/
+	visited_[state] = 1;/*è¿›å…¥DFS()çš„èŠ‚ç‚¹è‚¯å®šæ²¡è®¿é—®è¿‡ï¼Œæ•…ç°åœ¨æ ‡è®°ä¸ºè®¿é—®è¿‡*/
+	if (visited_.find(target_state_) != visited_.end()) return;/*åˆ¤æ–­ç›®æ ‡çŠ¶æ€æœ‰æ²¡æœ‰è®¿é—®è¿‡ï¼Œè®¿é—®è¿‡ç›´æ¥é€€å‡º*/
 	int curx, cury, nextx, nexty, cur_index, next_index;
 	cur_index = state.find('0');
 	curx = cur_index % 3;
@@ -56,9 +56,9 @@ void EightDigital::DFS(string state) {
 			next_index = nextx + nexty * 3;
 			str[cur_index] = str[next_index];
 			str[next_index] = '0';
-			if (visited_.find(str) != visited_.end())continue;/*Èç¹û½ÚµãÒÑ¾­·ÃÎÊ¹ı£¬Ö±½ÓÌø³öµ±Ç°Ñ­»·*/
-			link_[str] = state;/*½¨Á¢¸¸×Ó¹ØÏµ*/
-			DFS(str);/*µİ¹éµ÷ÓÃDFS*/
+			if (visited_.find(str) != visited_.end())continue;/*å¦‚æœèŠ‚ç‚¹å·²ç»è®¿é—®è¿‡ï¼Œç›´æ¥è·³å‡ºå½“å‰å¾ªç¯*/
+			link_[str] = state;/*å»ºç«‹çˆ¶å­å…³ç³»*/
+			DFS(str);/*é€’å½’è°ƒç”¨DFS*/
 		}
 	}
 }
@@ -68,47 +68,47 @@ void EightDigital::BFS(string state) {
 	queue.push(state);
 	visited_[state] = 1;
 	while (!queue.empty()) {
-		string str = queue.front();/*È¡¶ÔÍ·*/
-		if (str == target_state_)return;/*µ±Ç°¶ÓÍ·ÎªÄ¿±ê×´Ì¬£¬Ö±½ÓÍË³öº¯Êı*/
+		string str = queue.front();/*å–å¯¹å¤´*/
+		if (str == target_state_)return;/*å½“å‰é˜Ÿå¤´ä¸ºç›®æ ‡çŠ¶æ€ï¼Œç›´æ¥é€€å‡ºå‡½æ•°*/
 		int curx, cury, nextx, nexty, cur_index, next_index;
 		cur_index = str.find('0');
 		curx = cur_index % 3;
 		cury = cur_index / 3;
 		for (int i = 0; i < 4; ++i) {
-			str = queue.front();/*Ã¿´ÎÑ­»·str¶¼ÒªÖØĞÂ±»¶ÓÍ·¸³Öµ£¬·ñÔòstr»á·¢Éú¸Ä±ä*/
+			str = queue.front();/*æ¯æ¬¡å¾ªç¯stréƒ½è¦é‡æ–°è¢«é˜Ÿå¤´èµ‹å€¼ï¼Œå¦åˆ™strä¼šå‘ç”Ÿæ”¹å˜*/
 			nextx = curx + move_direction[i][0];
 			nexty = cury + move_direction[i][1];
 			if (nextx >= 0 && nextx < 3 && nexty >= 0 && nexty < 3) {
 				next_index = nextx + nexty * 3;
 				str[cur_index] = str[next_index];
 				str[next_index] = '0';
-				if (visited_.find(str) == visited_.end()) {/*strÎ´±»·ÃÎÊ¹ı£¬²Å»á¸øËüÈë¶ÓÁĞ*/
-					link_[str] = queue.front();/*½¨Á¢¸¸×Ó¹ØÏµ*/
+				if (visited_.find(str) == visited_.end()) {/*stræœªè¢«è®¿é—®è¿‡ï¼Œæ‰ä¼šç»™å®ƒå…¥é˜Ÿåˆ—*/
+					link_[str] = queue.front();/*å»ºç«‹çˆ¶å­å…³ç³»*/
 					queue.push(str);
-					visited_[str] = 1;/*±ê¼ÇÎªÒÑ·ÃÎÊ¹ı*/
+					visited_[str] = 1;/*æ ‡è®°ä¸ºå·²è®¿é—®è¿‡*/
 				}
 			}
 		}
-		queue.pop();/*Óë¶ÓÍ·Ïà¹ØµÄ½Úµã¶¼ÒÑ´¦ÀíÍê£¬½«¶ÓÍ·³ö¶Ó*/
+		queue.pop();/*ä¸é˜Ÿå¤´ç›¸å…³çš„èŠ‚ç‚¹éƒ½å·²å¤„ç†å®Œï¼Œå°†é˜Ÿå¤´å‡ºé˜Ÿ*/
 	}
 }
 
 void EightDigital::TwoWayBFS(string state) {
-	queue<string>queue[2];/*ÉèÖÃÁ½¸ö¶ÓÁĞ£¬·Ö±ğ¶ÔÓ¦´Ó³õÊ¼×´Ì¬£¨¼ÇÎªd·½Ïò£©,´ÓÄ¿±ê×´Ì¬£¨¼ÇÎªu·½Ïò£©*/
+	queue<string>queue[2];/*è®¾ç½®ä¸¤ä¸ªé˜Ÿåˆ—ï¼Œåˆ†åˆ«å¯¹åº”ä»åˆå§‹çŠ¶æ€ï¼ˆè®°ä¸ºdæ–¹å‘ï¼‰,ä»ç›®æ ‡çŠ¶æ€ï¼ˆè®°ä¸ºuæ–¹å‘ï¼‰*/
 	queue[0].push(initial_state_);
 	queue[1].push(target_state_);
-	visited_[initial_state_] = 0;/*d·½Ïò·ÃÎÊ±ê¼ÇÉèÎª0*/
-	visited_[target_state_] = 1;/*u·½Ïò·ÃÎÊ±ê¼ÇÉèÎª1*/
-	/*ÉèÖÃ±ê¼Ç²»Í¬ÓÃÀ´Çø·ÖÊÇÄÄ¸ö·½Ïò·ÃÎÊµÄ*/
+	visited_[initial_state_] = 0;/*dæ–¹å‘è®¿é—®æ ‡è®°è®¾ä¸º0*/
+	visited_[target_state_] = 1;/*uæ–¹å‘è®¿é—®æ ‡è®°è®¾ä¸º1*/
+	/*è®¾ç½®æ ‡è®°ä¸åŒç”¨æ¥åŒºåˆ†æ˜¯å“ªä¸ªæ–¹å‘è®¿é—®çš„*/
 	while (!queue[0].empty() && !queue[1].empty()) {
 		string str, temp_str;
 		int curx, cury, nextx, nexty, cur_index, next_index;
-		for (int i = 0; i < 2; ++i) {/*¶ÔÓ¦Á½¸ö·½ÏòµÄ¶ÓÁĞ*/
+		for (int i = 0; i < 2; ++i) {/*å¯¹åº”ä¸¤ä¸ªæ–¹å‘çš„é˜Ÿåˆ—*/
 			str = queue[i].front();
 			cur_index = str.find('0');
 			curx = cur_index % 3;
 			cury = cur_index / 3;
-			for (int j = 0; j < 4; ++j) {/*¶ÔÓ¦ËÄ¸ö·½Ïò*/
+			for (int j = 0; j < 4; ++j) {/*å¯¹åº”å››ä¸ªæ–¹å‘*/
 				temp_str = str;
 				nextx = curx + move_direction[j][0];
 				nexty = cury + move_direction[j][1];
@@ -116,47 +116,47 @@ void EightDigital::TwoWayBFS(string state) {
 					next_index = nextx + nexty * 3;
 					temp_str[cur_index] = temp_str[next_index];
 					temp_str[next_index] = '0';
-					if (visited_.find(temp_str) == visited_.end()) {/*¸Ã×´Ì¬´ÓÎ´±»·ÃÎÊ¹ı(°üÀ¨Á½¸ö·½Ïò)*/
+					if (visited_.find(temp_str) == visited_.end()) {/*è¯¥çŠ¶æ€ä»æœªè¢«è®¿é—®è¿‡(åŒ…æ‹¬ä¸¤ä¸ªæ–¹å‘)*/
 						queue[i].push(temp_str);
-						visited_[temp_str] = i;/*×ö¶ÔÓ¦µÄ±ê¼Ç*/
-						link_[temp_str] = str;/*½¨Á¢¸¸×Ó¹ØÏµ*/
+						visited_[temp_str] = i;/*åšå¯¹åº”çš„æ ‡è®°*/
+						link_[temp_str] = str;/*å»ºç«‹çˆ¶å­å…³ç³»*/
 					}
-					else if (visited_[temp_str] ^ i) {/*¸Ã×´Ì¬±»ÆäÖĞÒ»¸ö·½Ïò·ÃÎÊ¹ı,´ËÊ±µÄ½Úµã¾ÍÊÇ¹«¹²·ÃÎÊ½Úµã*/
-						key_str_ = temp_str;/*¼ÇÂ¼¹Ø¼ü½Úµã*/
-						/*´ËÊ±temp_strÒÑÔÚ¹ØÏµ±íÖĞ£¬ÔÙ´ÎÑ¹ÈëĞèÒª×ö·½Ïò±ê¼Ç·ÀÖ¹¸²¸Ç*/
+					else if (visited_[temp_str] ^ i) {/*è¯¥çŠ¶æ€è¢«å…¶ä¸­ä¸€ä¸ªæ–¹å‘è®¿é—®è¿‡,æ­¤æ—¶çš„èŠ‚ç‚¹å°±æ˜¯å…¬å…±è®¿é—®èŠ‚ç‚¹*/
+						key_str_ = temp_str;/*è®°å½•å…³é”®èŠ‚ç‚¹*/
+						/*æ­¤æ—¶temp_strå·²åœ¨å…³ç³»è¡¨ä¸­ï¼Œå†æ¬¡å‹å…¥éœ€è¦åšæ–¹å‘æ ‡è®°é˜²æ­¢è¦†ç›–*/
 						if (i == 0)link_[temp_str + 'd'] = str;
 						else link_[temp_str + 'u'] = str;
-						return;/*Ç°ºóËÑË÷ÖØºÏ£¬¹Ø¼ü½ÚµãÒÑ¼ÇÂ¼£¬ÍË³öº¯Êı*/
+						return;/*å‰åæœç´¢é‡åˆï¼Œå…³é”®èŠ‚ç‚¹å·²è®°å½•ï¼Œé€€å‡ºå‡½æ•°*/
 					}
 				}
 			}
-			queue[i].pop();/*Óëµ±Ç°¶ÓÁĞÓĞ¹Ø½ÚµãÒÑ´¦ÀíÍê£¬½«µ±Ç°¶ÓÍ·³ö¶ÓÁĞ*/
+			queue[i].pop();/*ä¸å½“å‰é˜Ÿåˆ—æœ‰å…³èŠ‚ç‚¹å·²å¤„ç†å®Œï¼Œå°†å½“å‰é˜Ÿå¤´å‡ºé˜Ÿåˆ—*/
 		}
 	}
 }
 
 void EightDigital::Astar(string state) {
-	pair<string, int>top_pair;/*open±íÔªËØÀàĞÍÊÇpair,string±íÊ¾×´Ì¬£¬int±íÊ¾fÖµ*/
-	open_.push(make_pair(state, Inspire(state)));/*³õÊ¼×´Ì¬Éî¶ÈÎª0*/
+	pair<string, int>top_pair;/*openè¡¨å…ƒç´ ç±»å‹æ˜¯pair,stringè¡¨ç¤ºçŠ¶æ€ï¼Œintè¡¨ç¤ºfå€¼*/
+	open_.push(make_pair(state, Inspire(state)));/*åˆå§‹çŠ¶æ€æ·±åº¦ä¸º0*/
 	map_depth_.insert(make_pair(state, 0));
 	initial_state_ = state;
 	while (!open_.empty()) {
 		while (closed_.find(open_.top().first) != closed_.end()) {
 			open_.pop();
-		}/*ÅĞ¶Ïµ±Ç°¶ÓÍ·ÊÇ·ñÔÚclosed±í£¬ÈôÔÚ±íÖĞ¾Í³ö¶Ó*/
-		if (open_.top().first == target_state_) return;/*µ±Ç°¶ÓÍ·ÊÇÄ¿±ê×´Ì¬£¬Ö±½ÓÍË³öº¯Êı*/
-		top_pair = open_.top();/*ÁÙÊ±±äÁ¿¸³ÖµÎª¶ÓÍ·*/
-		open_.pop();/*¶ÓÍ·³ö¶Ó*/
-		closed_.insert(top_pair);/*¶ÓÍ·Èëclosed±í*/
-		for (int i = 0; i < 4; ++i) {/*¶Ô×óÓÒÉÏÏÂËÄ¸ö·½Ïò·Ö±ğ³¢ÊÔÒÆ¶¯*/
+		}/*åˆ¤æ–­å½“å‰é˜Ÿå¤´æ˜¯å¦åœ¨closedè¡¨ï¼Œè‹¥åœ¨è¡¨ä¸­å°±å‡ºé˜Ÿ*/
+		if (open_.top().first == target_state_) return;/*å½“å‰é˜Ÿå¤´æ˜¯ç›®æ ‡çŠ¶æ€ï¼Œç›´æ¥é€€å‡ºå‡½æ•°*/
+		top_pair = open_.top();/*ä¸´æ—¶å˜é‡èµ‹å€¼ä¸ºé˜Ÿå¤´*/
+		open_.pop();/*é˜Ÿå¤´å‡ºé˜Ÿ*/
+		closed_.insert(top_pair);/*é˜Ÿå¤´å…¥closedè¡¨*/
+		for (int i = 0; i < 4; ++i) {/*å¯¹å·¦å³ä¸Šä¸‹å››ä¸ªæ–¹å‘åˆ†åˆ«å°è¯•ç§»åŠ¨*/
 			TryToMove(top_pair.first, direction[i], map_depth_[top_pair.first] + 1);
 		}
-		/*ÓÉÓÚopen±íÊÇÓÅÏÈ¶ÓÁĞ£¬ËùÒÔÖ»Ğè½«×´Ì¬Ñ¹Èëopen±í£¬¶ÓÍ·×ÔÈ»¾ÍÊÇÖµ×îĞ¡µÄ½Úµã*/
+		/*ç”±äºopenè¡¨æ˜¯ä¼˜å…ˆé˜Ÿåˆ—ï¼Œæ‰€ä»¥åªéœ€å°†çŠ¶æ€å‹å…¥openè¡¨ï¼Œé˜Ÿå¤´è‡ªç„¶å°±æ˜¯å€¼æœ€å°çš„èŠ‚ç‚¹*/
 	}
 }
 
 int EightDigital::Inspire(string state) {
-	int cost = 0;/*¼ÇÂ¼´ú¼Û£¬Âü¹ş¶Ù¾àÀë*/
+	int cost = 0;/*è®°å½•ä»£ä»·ï¼Œæ›¼å“ˆé¡¿è·ç¦»*/
 	for (int i = 0; i < 9; ++i) {
 		if (state[i] != '0') {
 			cost += abs((state[i] - '0') / 3 - i / 3) + abs((state[i] - '0') % 3 - i % 3);
@@ -170,7 +170,7 @@ void EightDigital::TryToMove(string state, char direction, int depth) {
 	int curx, cury, nextx, nexty;
 	curx = state.find('0') % 3;
 	cury = state.find('0') / 3;
-	/*ÕâÀïÃ»ÓĞ²ÉÓÃmove_deirection[4][2]À´±íÊ¾ÒÆ¶¯·½Ïò¶ÔÓ¦¶şÎ¬×ø±êµÄ±ä»¯*/
+	/*è¿™é‡Œæ²¡æœ‰é‡‡ç”¨move_deirection[4][2]æ¥è¡¨ç¤ºç§»åŠ¨æ–¹å‘å¯¹åº”äºŒç»´åæ ‡çš„å˜åŒ–*/
 	nextx = curx;
 	nexty = cury;
 	if (direction == 'l') nextx = curx - 1;
@@ -180,17 +180,17 @@ void EightDigital::TryToMove(string state, char direction, int depth) {
 	if (nextx >= 0 && nextx < 3 && nexty >= 0 && nexty < 3) {
 		s[cury * 3 + curx] = s[nexty * 3 + nextx];
 		s[nexty * 3 + nextx] = '0';
-		if (map_depth_.find(s) == map_depth_.end()) {/*µ±Ç°½Úµã²»ÔÚÉî¶È±íÖĞ£¬ÒÔÇ°´ÓÎ´±»·ÃÎÊ¹ı*/
-			map_depth_[s] = depth;/*½«½Úµã¼ÓÈëÉî¶È±í*/
-			map_path_[s] = state;/*½¨Á¢¸¸×Ó¹ØÏµ*/
-			open_.push(make_pair(s, depth + Inspire(s)));/*½«Éî¶È+Âü¹ş¶ÙÖµµÃµ½fÖµ£¬½«×´Ì¬Ñ¹Èëopen±í*/
+		if (map_depth_.find(s) == map_depth_.end()) {/*å½“å‰èŠ‚ç‚¹ä¸åœ¨æ·±åº¦è¡¨ä¸­ï¼Œä»¥å‰ä»æœªè¢«è®¿é—®è¿‡*/
+			map_depth_[s] = depth;/*å°†èŠ‚ç‚¹åŠ å…¥æ·±åº¦è¡¨*/
+			map_path_[s] = state;/*å»ºç«‹çˆ¶å­å…³ç³»*/
+			open_.push(make_pair(s, depth + Inspire(s)));/*å°†æ·±åº¦+æ›¼å“ˆé¡¿å€¼å¾—åˆ°få€¼ï¼Œå°†çŠ¶æ€å‹å…¥openè¡¨*/
 		}
-		else {/*µ±Ç°½ÚµãÔÚÉî¶È±íÖĞ£¬ËµÃ÷ÒÔÇ°ÒÑ±»·ÃÎÊ¹ı*/
-			if (depth < map_depth_[s]) {/*µ±Ç°Éî¶ÈĞ¡ÓÚÉî¶È±íÖĞ¶ÔÓ¦Éî¶È£¬ÔòËµÃ÷Éî¶È±íĞèÒª¸üĞÂ*/
+		else {/*å½“å‰èŠ‚ç‚¹åœ¨æ·±åº¦è¡¨ä¸­ï¼Œè¯´æ˜ä»¥å‰å·²è¢«è®¿é—®è¿‡*/
+			if (depth < map_depth_[s]) {/*å½“å‰æ·±åº¦å°äºæ·±åº¦è¡¨ä¸­å¯¹åº”æ·±åº¦ï¼Œåˆ™è¯´æ˜æ·±åº¦è¡¨éœ€è¦æ›´æ–°*/
 				map_depth_[s] = depth;
 				map_path_[s] = state;
 				if (closed_.find(s) != closed_.end()) {
-					/*ÅĞ¶Ï½ÚµãÊÇ·ñÔÚclosed±í£¬ÈôÔÚ½«ÆäÒÆ³öclosed±í£¬½«¸üĞÂºóµÄ×´Ì¬¼ÓÈëopen±í*/
+					/*åˆ¤æ–­èŠ‚ç‚¹æ˜¯å¦åœ¨closedè¡¨ï¼Œè‹¥åœ¨å°†å…¶ç§»å‡ºclosedè¡¨ï¼Œå°†æ›´æ–°åçš„çŠ¶æ€åŠ å…¥openè¡¨*/
 					closed_.erase(s);
 					open_.push(make_pair(s, depth + Inspire(s)));
 				}
@@ -201,7 +201,7 @@ void EightDigital::TryToMove(string state, char direction, int depth) {
 
 void EightDigital::PrintAstarPath() {
 	string s = target_state_;
-	int move;/*ÓÃÀ´±íÊ¾Ç°ºó×´Ì¬µÄ²îÖµ*/
+	int move;/*ç”¨æ¥è¡¨ç¤ºå‰åçŠ¶æ€çš„å·®å€¼*/
 	while (s != initial_state_) {
 		move = s.find('0') - map_path_[s].find('0');
 		if (move == -1)move_path_.push_back('l');
@@ -212,7 +212,7 @@ void EightDigital::PrintAstarPath() {
 		s = map_path_[s];
 	}
 	path_.push_back(initial_state_);
-	/*ÓÉÓÚ´ËÊ±pathÀïÃæµÄÂ·¾¶ÊÇµ¹ÖÃµÄ£¬¹Ê½«Æä·´ÏòÊä³ö£¬Ò²¿ÉÒÔÓÃÕ»ÊµÏÖ£¬µ«Êä³ö½áÊøÕ»¿Õ£¬Â·¾¶ÎŞ·¨±£Áô*/
+	/*ç”±äºæ­¤æ—¶pathé‡Œé¢çš„è·¯å¾„æ˜¯å€’ç½®çš„ï¼Œæ•…å°†å…¶åå‘è¾“å‡ºï¼Œä¹Ÿå¯ä»¥ç”¨æ ˆå®ç°ï¼Œä½†è¾“å‡ºç»“æŸæ ˆç©ºï¼Œè·¯å¾„æ— æ³•ä¿ç•™*/
 	for (int i = 0; i < path_.size(); ++i) {
 		for (int j = 0; j < 9; ++j) {
 			cout << path_[path_.size() - 1 - i][j] << '\t';
@@ -230,21 +230,21 @@ void EightDigital::PrintDFSAndBFSPath() {
 	string str = target_state_;
 	while (str != initial_state_) {
 		stack.push(str);
-		str = link_[str];/*×ÔÏÂ¶øÉÏ²éÕÒ£¬Ö±µ½ÕÒµ½³õÊ¼×´Ì¬*/
+		str = link_[str];/*è‡ªä¸‹è€Œä¸ŠæŸ¥æ‰¾ï¼Œç›´åˆ°æ‰¾åˆ°åˆå§‹çŠ¶æ€*/
 	}
 	stack.push(initial_state_);
-	int num = stack.size();/*¼ÇÂ¼²½Êı*/
+	int num = stack.size();/*è®°å½•æ­¥æ•°*/
 	while (!stack.empty()) {
 		PrintStringAsMatrix(stack.top());
 		stack.pop();
 	}
-	cout << "¹²" << num << "²½." << endl;
+	cout << "å…±" << num << "æ­¥." << endl;
 }
 
 void EightDigital::PrintTwoWayPath() {
 	string str;
-	/*ÓÉÓÚË«ÏòBFS,ËùÒÔÀûÓÃ¹Ø¼ü½Úµãkey_str£¬´ÓÁ½¸ö·½Ïò·´ÏòËÑË÷*/
-	if (link_.find(key_str_ + 'd') != link_.end()) {/*¹Ø¼ü½ÚµãÊÇd·½ÏòºóÕÒµ½µÄ*/
+	/*ç”±äºåŒå‘BFS,æ‰€ä»¥åˆ©ç”¨å…³é”®èŠ‚ç‚¹key_strï¼Œä»ä¸¤ä¸ªæ–¹å‘åå‘æœç´¢*/
+	if (link_.find(key_str_ + 'd') != link_.end()) {/*å…³é”®èŠ‚ç‚¹æ˜¯dæ–¹å‘åæ‰¾åˆ°çš„*/
 		str = link_[key_str_ + 'd'];
 		stack<string> prec_stack;
 		while (str != initial_state_) {
@@ -263,7 +263,7 @@ void EightDigital::PrintTwoWayPath() {
 		}
 		PrintStringAsMatrix(target_state_);
 	}
-	else {/*¹Ø¼ü½ÚµãÊÇu·½ÏòºóÕÒµ½µÄ*/
+	else {/*å…³é”®èŠ‚ç‚¹æ˜¯uæ–¹å‘åæ‰¾åˆ°çš„*/
 		str = key_str_;
 		stack<string> prec_stack;
 		while (str != initial_state_) {
@@ -285,7 +285,7 @@ void EightDigital::PrintTwoWayPath() {
 }
 
 void EightDigital::Clear() {
-	/*Çå¿ÕÏà¹ØÊôĞÔ£¬·ÀÖ¹Ç°Ò»´Îµ÷ÓÃÏà¹ØÊôĞÔ»á·¢Éú±ä»¯£¬½¨ÒéÃ¿´Îµ÷ÓÃËÑË÷Ëã·¨Ç°µ÷ÓÃ´Ëº¯Êı*/
+	/*æ¸…ç©ºç›¸å…³å±æ€§ï¼Œé˜²æ­¢å‰ä¸€æ¬¡è°ƒç”¨ç›¸å…³å±æ€§ä¼šå‘ç”Ÿå˜åŒ–ï¼Œå»ºè®®æ¯æ¬¡è°ƒç”¨æœç´¢ç®—æ³•å‰è°ƒç”¨æ­¤å‡½æ•°*/
 	steps_ = 0;
 	while (!open_.empty())open_.pop();
 	closed_.clear();

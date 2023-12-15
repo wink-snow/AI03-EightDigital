@@ -10,48 +10,48 @@
 #include<utility>
 using namespace std;
 
-/*ÒÔÏÂ½á¹¹ÓÃÓÚÊµÏÖÔËËã·ûÖØÔØ£¬ÓÃÒÔÊµÏÖ×îĞ¡ÓÅÏÈ¶ÓÁĞ*/
+/*ä»¥ä¸‹ç»“æ„ç”¨äºå®ç°è¿ç®—ç¬¦é‡è½½ï¼Œç”¨ä»¥å®ç°æœ€å°ä¼˜å…ˆé˜Ÿåˆ—*/
 struct Cmp {
 	bool operator()(pair<string, int>& a, pair<string, int>& b) {
 		return a.second > b.second;
 	}
 };
 
-/*EightDigitalÀà°üº¬A*Ëã·¨£¬DFS£¬BFS,Ë«ÏòBFS,ÊµÏÖ°ËÊıÂëÄÑÌâ*/
+/*EightDigitalç±»åŒ…å«A*ç®—æ³•ï¼ŒDFSï¼ŒBFS,åŒå‘BFS,å®ç°å…«æ•°ç éš¾é¢˜*/
 class EightDigital
 {
 public:
-	EightDigital(string state);/*¹¹Ôìº¯Êı£¬´«Èë×´Ì¬¼´Îª³õÊ¼×´Ì¬*/
-	void setInitialState(string state);/*ÉèÖÃ³õÊ¼×´Ì¬*/
-	void setTargetState(string state);/*×¢ÒâDFSÉèÖÃÎª"176240583"£¬²»È»ËÑË÷»á±¬Õ¨*/
-	string getInitialState();/*»ñÈ¡³õÊ¼×´Ì¬*/
-	string getTargetState();/*»ñÈ¡Ä¿±ê×´Ì¬*/
-	void PrintStringAsMatrix(string state);/*½«×´Ì¬ÓÉ×Ö·û´®×ª»»³É3x3¾ØÕóÊä³ö*/
-	bool HasSolution(string state);/*ÅĞ¶Ï³õÊ¼×´Ì¬ÊÇ·ñ¿É´ï*/
-	void DFS(string state);/*DFSÇó½â°ËÊıÂë*/
-	void BFS(string state);/*BFSÇó½â°ËÊıÂë*/
-	void TwoWayBFS(string state);/*Ë«ÏòBFSÇó½â°ËÊıÂë*/
-	void Astar(string state);/*A*Ëã·¨*/
-	int Inspire(string state);/*A*Æô·¢º¯Êı,Âü¹ş¶Ù¾àÀë*/
-	void TryToMove(string state, char direction, int depth);/*A*×´Ì¬ÒÆ¶¯´¦Àí*/
-	void PrintAstarPath();/*´òÓ¡A*Ëã·¨Â·¾¶*/
-	void PrintDFSAndBFSPath();/*´òÓ¡DFS¡¢BFSËã·¨Â·¾¶*/
-	void PrintTwoWayPath();/*´òÓ¡Ë«ÏòBFSËã·¨Â·¾¶*/
-	void Clear();/*Çå¿ÕÏà¹ØÊôĞÔ£¬½¨ÒéÃ¿´Îµ÷ÓÃËÑË÷Ëã·¨Ç°µ÷ÓÃ´Ëº¯Êı*/
+	EightDigital(string state);/*æ„é€ å‡½æ•°ï¼Œä¼ å…¥çŠ¶æ€å³ä¸ºåˆå§‹çŠ¶æ€*/
+	void setInitialState(string state);/*è®¾ç½®åˆå§‹çŠ¶æ€*/
+	void setTargetState(string state);/*æ³¨æ„DFSè®¾ç½®ä¸º"176240583"ï¼Œä¸ç„¶æœç´¢ä¼šçˆ†ç‚¸*/
+	string getInitialState();/*è·å–åˆå§‹çŠ¶æ€*/
+	string getTargetState();/*è·å–ç›®æ ‡çŠ¶æ€*/
+	void PrintStringAsMatrix(string state);/*å°†çŠ¶æ€ç”±å­—ç¬¦ä¸²è½¬æ¢æˆ3x3çŸ©é˜µè¾“å‡º*/
+	bool HasSolution(string state);/*åˆ¤æ–­åˆå§‹çŠ¶æ€æ˜¯å¦å¯è¾¾*/
+	void DFS(string state);/*DFSæ±‚è§£å…«æ•°ç */
+	void BFS(string state);/*BFSæ±‚è§£å…«æ•°ç */
+	void TwoWayBFS(string state);/*åŒå‘BFSæ±‚è§£å…«æ•°ç */
+	void Astar(string state);/*A*ç®—æ³•*/
+	int Inspire(string state);/*A*å¯å‘å‡½æ•°,æ›¼å“ˆé¡¿è·ç¦»*/
+	void TryToMove(string state, char direction, int depth);/*A*çŠ¶æ€ç§»åŠ¨å¤„ç†*/
+	void PrintAstarPath();/*æ‰“å°A*ç®—æ³•è·¯å¾„*/
+	void PrintDFSAndBFSPath();/*æ‰“å°DFSã€BFSç®—æ³•è·¯å¾„*/
+	void PrintTwoWayPath();/*æ‰“å°åŒå‘BFSç®—æ³•è·¯å¾„*/
+	void Clear();/*æ¸…ç©ºç›¸å…³å±æ€§ï¼Œå»ºè®®æ¯æ¬¡è°ƒç”¨æœç´¢ç®—æ³•å‰è°ƒç”¨æ­¤å‡½æ•°*/
 private:
-	string initial_state_;/*°ËÊıÂë³õÊ¼×´Ì¬*/
-	string target_state_ = "012345678";/*°ËÊıÂëÄ¿±ê×´Ì¬*/
-	char direction[4] = { 'l','r','u','d' };/*ÒÆ¶¯·½Ïò*/
-	int move_direction[4][2] = { {-1,0},{1,0},{0,-1},{0,1} };/*ÒÆ¶¯·½Ïò¶ÔÓ¦¶şÎ¬×ø±êµÄ±ä»¯*/
-	int steps_ = 0;/*¿ÉÓÃÓÚ¼ÇÂ¼ËÑË÷µÄ×´Ì¬Êı£¨×¢Òâ²»ÊÇÒÆ¶¯Â·¾¶£©*/
-	priority_queue<pair<string, int>, vector<pair<string, int>>, Cmp>open_;/*open±í--×îĞ¡ÓÅÏÈ¶ÓÁĞ*/
-	map<string, int>closed_;/*closed±í---¹şÏ£±í*/
-	map<string, int> map_depth_;/*Éî¶È±í£¨È«¾Ö£©*/
-	map<string, string>map_path_;/*A*Ëã·¨¸¸×Ó¹ØÏµ±í£¬º¢×Ó-->¸¸Ç×*/
-	vector<string> path_;/*A*Ëã·¨Â·¾¶ÉÏµÄ¸÷¸ö×´Ì¬£¨µ¹ÖÃ£©*/
-	vector<char> move_path_;/*A*Ëã·¨Â·¾¶ÉÏµÄÒÆ¶¯·½Ïò£¨µ¹ÖÃ£©*/
-	map<string, int>visited_;/*ÓÃÓÚ³ıA*Ëã·¨ÍâµÄÈ«¾Ö·ÃÎÊ¼ÇÂ¼*/
-	map<string, string>link_;/*ÓÃÓÚ³ıA*Ëã·¨ÍâµÄ¸¸×Ó¹ØÏµ±í£¬º¢×Ó--->¸¸Ç×*/
-	string key_str_;/*ÓÃÓÚ¼ÇÂ¼Ë«ÏòBFSµÄ¹«¹²·ÃÎÊ½Úµã£¬ÃüÃûÎª¹Ø¼ü½Úµã*/
+	string initial_state_;/*å…«æ•°ç åˆå§‹çŠ¶æ€*/
+	string target_state_ = "012345678";/*å…«æ•°ç ç›®æ ‡çŠ¶æ€*/
+	char direction[4] = { 'l','r','u','d' };/*ç§»åŠ¨æ–¹å‘*/
+	int move_direction[4][2] = { {-1,0},{1,0},{0,-1},{0,1} };/*ç§»åŠ¨æ–¹å‘å¯¹åº”äºŒç»´åæ ‡çš„å˜åŒ–*/
+	int steps_ = 0;/*å¯ç”¨äºè®°å½•æœç´¢çš„çŠ¶æ€æ•°ï¼ˆæ³¨æ„ä¸æ˜¯ç§»åŠ¨è·¯å¾„ï¼‰*/
+	priority_queue<pair<string, int>, vector<pair<string, int>>, Cmp>open_;/*openè¡¨--æœ€å°ä¼˜å…ˆé˜Ÿåˆ—*/
+	map<string, int>closed_;/*closedè¡¨---å“ˆå¸Œè¡¨*/
+	map<string, int> map_depth_;/*æ·±åº¦è¡¨ï¼ˆå…¨å±€ï¼‰*/
+	map<string, string>map_path_;/*A*ç®—æ³•çˆ¶å­å…³ç³»è¡¨ï¼Œå­©å­-->çˆ¶äº²*/
+	vector<string> path_;/*A*ç®—æ³•è·¯å¾„ä¸Šçš„å„ä¸ªçŠ¶æ€ï¼ˆå€’ç½®ï¼‰*/
+	vector<char> move_path_;/*A*ç®—æ³•è·¯å¾„ä¸Šçš„ç§»åŠ¨æ–¹å‘ï¼ˆå€’ç½®ï¼‰*/
+	map<string, int>visited_;/*ç”¨äºé™¤A*ç®—æ³•å¤–çš„å…¨å±€è®¿é—®è®°å½•*/
+	map<string, string>link_;/*ç”¨äºé™¤A*ç®—æ³•å¤–çš„çˆ¶å­å…³ç³»è¡¨ï¼Œå­©å­--->çˆ¶äº²*/
+	string key_str_;/*ç”¨äºè®°å½•åŒå‘BFSçš„å…¬å…±è®¿é—®èŠ‚ç‚¹ï¼Œå‘½åä¸ºå…³é”®èŠ‚ç‚¹*/
 };
 
