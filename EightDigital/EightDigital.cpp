@@ -82,7 +82,7 @@ void EightDigital::TryToMove(string state, char direction, int depth) {
 	if (direction == 'l') nextx = curx - 1;
 	else if (direction == 'r') nextx = curx + 1;
 	else if (direction == 'u') nexty = cury - 1;
-	else nexty = cury + 1;
+	else if (direction == 'd') nexty = cury + 1;
 	if (nextx >= 0 && nextx < 3 && nexty >= 0 && nexty < 3) {
 		s[cury * 3 + curx] = s[nexty * 3 + nextx];
 		s[nexty * 3 + nextx] = '0';
@@ -110,21 +110,16 @@ void EightDigital::PrintAstarPath() {
 	int move;//用来表示前后状态的差值 
 	while (s != initial_state_) {
 		move = s.find('0') - map_path_[s].find('0');
-		if (move == -1)move_path_.push_back('l');
-		else if (move == 1)move_path_.push_back('r');
-		else if (move == -3)move_path_.push_back('u');
-		else move_path_.push_back('d');
+		if (move == -1) move_path_.push_back('l');
+		else if (move == 1) move_path_.push_back('r');
+		else if (move == -3) move_path_.push_back('u');
+		else if (move == 3) move_path_.push_back('d');
 		path_.push_back(s);
 		s = map_path_[s];
 	}
 	path_.push_back(initial_state_);
-	//由于此时path里面的路径是倒置的，故将其反向输出，也可以用栈实现，但输出结束栈空，路径无法保留 
-	for (int i = 0; i < int(path_.size()); ++i) {
-		for (int j = 0; j < 9; ++j) {
-			cout << path_[path_.size() - 1 - i][j] << '\t';
-			if ((j + 1) % 3 == 0 && j > 0)cout << endl;
-		}
-		cout << "******************" << endl;
+	for(int i = 0; i < int(path_.size()); ++i){
+		PrintStringAsMatrix(path_[path_.size() - 1 - i]);
 	}
 	cout << "MovePath->";
 	for (int i = move_path_.size() - 1; i >= 0; --i)cout << move_path_[i];
@@ -140,7 +135,4 @@ void EightDigital::Clear() {
 	map_path_.clear();
 	path_.clear();
 	move_path_.clear();
-	visited_.clear();
-	link_.clear();
-	key_str_ = "";
 }

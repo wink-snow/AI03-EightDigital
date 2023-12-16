@@ -364,5 +364,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 #Instrution files
-*.md
 *.pdf
