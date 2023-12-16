@@ -47,8 +47,5 @@ private:
 	map<string, string>map_path_;//A*算法父子关系表，孩子-->父亲 
 	vector<string> path_;//A*算法路径上的各个状态（倒置） 
 	vector<char> move_path_;//A*算法路径上的移动方向（倒置） 
-	map<string, int>visited_;//用于除A*算法外的全局访问记录 
-	map<string, string>link_;//用于除A*算法外的父子关系表，孩子--->父亲 
-	string key_str_;//用于记录双向BFS的公共访问节点，命名为关键节点 
 };
 

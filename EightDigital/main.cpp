@@ -1,7 +1,10 @@
 ﻿#include"EightDigital.h"
 
 int main() {
-	string str = "724506831";//初始化初始状态
+	cout << "********* EightDigital *********" << endl;
+	cout << "请初始化初始状态：" << endl;
+	string str = "";//724506831
+	getline(cin, str);
 	EightDigital e1(str);//A*算法
 
 	if (e1.HasSolution(e1.getInitialState())) {
