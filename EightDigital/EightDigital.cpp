@@ -46,6 +46,7 @@ void EightDigital::Astar(string state) {
 	open_.push(make_pair(state, Inspire(state)));//初始状态深度为0 
 	map_depth_.insert(make_pair(state, 0));
 	initial_state_ = state;
+
 	while (!open_.empty()) {
 		while (closed_.find(open_.top().first) != closed_.end()) {
 			open_.pop();
@@ -83,16 +84,19 @@ void EightDigital::TryToMove(string state, char direction, int depth) {
 	else if (direction == 'r') nextx = curx + 1;
 	else if (direction == 'u') nexty = cury - 1;
 	else if (direction == 'd') nexty = cury + 1;
+
 	if (nextx >= 0 && nextx < 3 && nexty >= 0 && nexty < 3) {
 		s[cury * 3 + curx] = s[nexty * 3 + nextx];
 		s[nexty * 3 + nextx] = '0';
 		if (map_depth_.find(s) == map_depth_.end()) {//当前节点不在深度表中，以前从未被访问过 
+
 			map_depth_[s] = depth;//将节点加入深度表 
 			map_path_[s] = state;//建立父子关系 
 			open_.push(make_pair(s, depth + Inspire(s)));//将深度+曼哈顿值得到f值，将状态压入open表 
 		}
 		else {//当前节点在深度表中，说明以前已被访问过 
 			if (depth < map_depth_[s]) {//当前深度小于深度表中对应深度，则说明深度表需要更新 
+
 				map_depth_[s] = depth;
 				map_path_[s] = state;
 				if (closed_.find(s) != closed_.end()) {
